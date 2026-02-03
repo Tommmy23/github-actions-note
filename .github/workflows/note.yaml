@@ -365,7 +365,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IS_PUBLIC: ${{ github.event.inputs.is_public }}
-      STATE_JSON: ${{ secrets.NOTE_STORAGE_STATE_JSON }}
+      STATE_JSON: ${{ secrets.NOTE_STATE_JSON }}
       START_URL: https://editor.note.com/new
     outputs:
       final_url: ${{ steps.publish.outputs.published_url || steps.publish.outputs.draft_url }}
@@ -387,7 +387,7 @@ jobs:
       - name: Prepare storageState
         id: state
         run: |
-          test -n "$STATE_JSON" || (echo "ERROR: NOTE_STORAGE_STATE_JSON secret is not set" && exit 1)
+          test -n "$STATE_JSON" || (echo "ERROR: NOTE_STATE_JSON secret is not set" && exit 1)
           mkdir -p "$RUNNER_TEMP"
           echo "$STATE_JSON" > "$RUNNER_TEMP/note-state.json"
           echo "STATE_PATH=$RUNNER_TEMP/note-state.json" >> $GITHUB_OUTPUT
